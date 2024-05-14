@@ -1,0 +1,86 @@
+body {
+  background-image: url("Images/background.jpg");
+  background-repeat: repeat-y;
+  width: 100%;
+}
+
+/*Nav*/
+.nav-link,
+.navbar-brand {
+  color: orange;
+}
+
+.navbar {
+  border: 2px solid orange;
+  background-color: rgb(35, 31, 32);
+}
+
+.nav-link:hover,
+.navbar-brand:hover {
+  color: rgb(255, 213, 128);
+}
+/*Nav end*/
+
+/*Main container*/
+#main {
+  margin: auto;
+  width: 100rem;
+}
+/*Main end*/
+
+/*Kártyák*/
+.card {
+  width: 400px;
+  height: 300px;
+  display: inline-block;
+  margin: 50px;
+  border: 2px solid orange;
+  color: rgb(244, 187, 68);
+  background-color: rgb(35, 31, 32);
+}
+
+.card-body {
+  text-align: center;
+}
+
+.btn {
+  margin: 10px;
+  margin-top: 30px;
+}
+
+/*Torles btn*/
+.btn-danger {
+  background-color: #824700;
+  border: none;
+}
+
+/*btn hover*/
+.btn-danger:hover,
+.btn-success:hover,
+.btn-primary:hover {
+  background-color: #ffbe70;
+}
+
+/*Modosit btn*/
+.btn-success {
+  background-color: #c65102;
+  border: none;
+}
+
+/*Reszletek*/
+.btn-primary {
+  background-color: #ec8100;
+  border: none;
+}
+/*Káryák end*/
+
+/*Form*/
+.form-group {
+  color: #c65102;
+}
+
+form {
+  margin: auto;
+  margin-top: 8rem;
+  width: 50%;
+}
