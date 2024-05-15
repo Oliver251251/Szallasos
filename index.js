@@ -66,6 +66,18 @@ function Modosit2(elem) {
     name: document.getElementById("name").value,
     price: document.getElementById("price").value,
   };
+
+  if (
+    adatok2.hotname == undefined ||
+    adatok2.location == undefined ||
+    adatok2.minimun_nights == undefined ||
+    adatok2.name == undefined ||
+    adatok2.price == undefined
+  ) {
+    alert("Ne hagyjon üresen semmit");
+    return;
+  }
+
   fetch("https://nodejs.sulla.hu/data/" + elem, {
     method: "PUT",
     body: JSON.stringify(adatok2),
@@ -131,6 +143,16 @@ function Kuld(elem) {
     name: document.getElementById("name").value,
     price: document.getElementById("price").value,
   };
+  if (
+    adatook.hostname == undefined ||
+    adatook.location == undefined ||
+    adatook.minimun_nights == undefined ||
+    adatook.name == undefined ||
+    adatook.price == undefined
+  ) {
+    alert("Ne hagyjon üresen semmit");
+    return;
+  }
 
   if (adatok.includes(elem)) {
     Modosit2(elem.id);
