@@ -24,13 +24,12 @@ function Divek(element) {
   divv.classList.add("card-body");
   divv.innerHTML = "Hostnév: " + element.hostname + "<br>";
   divv.innerHTML += "Hely: " + element.location + "<br>";
-  divv.innerHTML += "Minimum éjszakák: " + element.minimun_nights + "<br>";
+  divv.innerHTML += "Minimum éjszakák: " + element.minimum_nights + "<br>";
   divv.innerHTML += "Név: " + element.name + "<br>";
   divv.innerHTML += "Ár (forintban): " + element.price + " Ft<br>";
   divv.innerHTML += `<button class='btn btn-danger'onclick='Torol(${element.id})'>Törlés</button>`;
   divv.innerHTML += `<button class='btn btn-success' onclick='Modosit(${szam})'>Módosít</button>`;
   divv.innerHTML += `<button class='btn btn-primary' onclick='Reszletek()'>Részletek</button>`;
-  console.log(element.minimum_nights);
   div.appendChild(divv);
   test.appendChild(div);
 }
