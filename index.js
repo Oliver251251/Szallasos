@@ -53,14 +53,20 @@ function Torol(id) {
 }
 
 function Modosit(elem) {
-  UjSzallas(elem);
+  let mi = adatok[elem];
+  console.log(mi);
+  UjSzallas(mi);
+}
+
+function Modosit2(elem) {
   let adatok2 = {
-    id: eredmeny[indeex].id,
-    isGlutenFree: document.getElementById("isGlutenFreee1").value,
-    kepURL: document.getElementById("kep1").value,
-    name: document.getElementById("nev1").value,
+    hotname: document.getElementById("hostname").value,
+    location: document.getElementById("location").value,
+    minimun_nights: document.getElementById("minimun_nights").value,
+    name: document.getElementById("name").value,
+    price: document.getElementById("price").value,
   };
-  fetch("https://nodejs.sulla.hu/data/" + adatok[elem].id, {
+  fetch("https://nodejs.sulla.hu/data/" + elem, {
     method: "PUT",
     body: JSON.stringify(adatok2),
     headers: {
@@ -83,31 +89,39 @@ function UjSzallas(elem) {
   test.innerHTML = `
   <form>
   <div class="form-group">
-    <label for="hotname">Hostnév</label>
-    <input class="form-control" id="hostname" placeholder="Írja be a nevet" value="${adatok[elem].hostname}">
+    <label for="hostname">Hostnév</label>
+    <input class="form-control" id="hostname" placeholder="Írja be a nevet" value="">
   </div>
   <div class="form-group">
     <label for="location">Hely</label>
-    <input class="form-control" id="location" placeholder="Hely" value="${adatok[elem].location}">
+    <input class="form-control" id="location" placeholder="Hely" value="">
   </div>
     <div class="form-group">
     <label for="minimun_nights">Minimum éjszakák</label>
-    <input type="number" class="form-control" id="minimun_nights" placeholder="Minimum éjszakák" value="${adatok[elem].minimum_nights}">
+    <input type="text" class="form-control" id="minimun_nights" placeholder="Minimum éjszakák" value="">
   </div>
     <div class="form-group">
     <label for="name">Név</label>
-    <input class="form-control" id="name" placeholder="Név" value="${adatok[elem].name}">
+    <input class="form-control" id="name" placeholder="Név" value="">
   </div>
     <div class="form-group">
     <label for="price">Ár (Forintban)</label>
-    <input type="number" class="form-control" id="price" placeholder="Ár (forintban)" value="${adatok[elem].price}">
+    <input type="number" class="form-control" id="price" placeholder="Ár (forintban)" value="">
   </div>
-  <button type="submit" class="btn btn-primary" onclick="Kuld()">Küld</button>
+  <button type="submit" id="kuld" class="btn btn-primary")">Küld</button>
 </form>`;
+  document.getElementById("kuld").addEventListener("click", function Func() {
+    Kuld(elem);
+  });
+  document.getElementById("hostname").value = elem.hostname;
+  document.getElementById("location").value = elem.location;
+  document.getElementById("minimun_nights").value = elem.minimum_nights;
+  document.getElementById("name").value = elem.name;
+  document.getElementById("price").value = elem.price;
 }
 
-function Kuld() {
-  let adatok = {
+function Kuld(elem) {
+  let adatook = {
     hostname: document.getElementById("hostname").value,
     location: document.getElementById("location").value,
     minimun_nights: document.getElementById("minimun_nights").value,
@@ -115,9 +129,14 @@ function Kuld() {
     price: document.getElementById("price").value,
   };
 
+  if (adatok.includes(elem)) {
+    Modosit2(elem.id);
+    return;
+  }
+
   fetch("https://nodejs.sulla.hu/data", {
     method: "POST",
-    body: JSON.stringify(adatok),
+    body: JSON.stringify(adatook),
     headers: {
       "Content-Type": "application/json",
     },
