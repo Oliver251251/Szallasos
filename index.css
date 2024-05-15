@@ -1,86 +1,105 @@
+/** @format */
+
 body {
-  background-image: url("Images/background.jpg");
-  background-repeat: repeat-y;
-  width: 100%;
+	background-image: url("Images/background.jpg");
+	background-repeat: repeat-y;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	position: relative;
 }
 
 /*Nav*/
 .nav-link,
 .navbar-brand {
-  color: orange;
+	color: orange;
 }
 
 .navbar {
-  border: 2px solid orange;
-  background-color: rgb(35, 31, 32);
+	border: 2px solid orange;
+	background-color: rgb(35, 31, 32);
 }
 
 .nav-link:hover,
 .navbar-brand:hover {
-  color: rgb(255, 213, 128);
+	color: rgb(255, 213, 128);
 }
 /*Nav end*/
 
 /*Main container*/
 #main {
-  margin: auto;
-  width: 100rem;
+	margin: auto;
+	width: 100rem;
+	position: absolute;
 }
 /*Main end*/
 
 /*Kártyák*/
 .card {
-  width: 400px;
-  height: 300px;
-  display: inline-block;
-  margin: 50px;
-  border: 2px solid orange;
-  color: rgb(244, 187, 68);
-  background-color: rgb(35, 31, 32);
+	width: 400px;
+	height: 300px;
+	display: inline-block;
+	margin: 50px;
+	border: 2px solid orange;
+	color: rgb(244, 187, 68);
+	background-color: rgb(35, 31, 32);
 }
 
 .card-body {
-  text-align: center;
+	text-align: center;
 }
 
 .btn {
-  margin: 10px;
-  margin-top: 30px;
+	margin: 10px;
+	margin-top: 30px;
 }
 
 /*Torles btn*/
 .btn-danger {
-  background-color: #824700;
-  border: none;
+	background-color: #824700;
+	border: none;
 }
 
 /*btn hover*/
 .btn-danger:hover,
 .btn-success:hover,
 .btn-primary:hover {
-  background-color: #ffbe70;
+	background-color: #ffbe70;
 }
 
 /*Modosit btn*/
 .btn-success {
-  background-color: #c65102;
-  border: none;
+	background-color: #c65102;
+	border: none;
 }
 
 /*Reszletek*/
 .btn-primary {
-  background-color: #ec8100;
-  border: none;
+	background-color: #ec8100;
+	border: none;
 }
 /*Káryák end*/
 
 /*Form*/
 .form-group {
-  color: #c65102;
+	color: #c65102;
 }
 
 form {
-  margin: auto;
-  margin-top: 8rem;
-  width: 50%;
+	margin: auto;
+	margin-top: 8rem;
+	width: 50%;
+}
+
+.popup {
+	position: absolute;
+	background-color: rgb(35, 31, 32);
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	height: inherit + 250px;
+	max-width: 400px;
+	text-align: center;
+	z-index: 999; /* Modify the z-index as needed */
 }

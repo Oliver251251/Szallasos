@@ -1,6 +1,6 @@
+/** @format */
+
 //To do
-//Ures ellenőrzés
-//undi megcsinálása
 //részletek gomb add function
 
 let test = document.getElementById("main");
@@ -9,145 +9,192 @@ let szam = 0;
 
 Lekeres();
 function Lekeres() {
-  test.innerHTML = "";
-  fetch("https://nodejs.sulla.hu/data")
-    .then((res) => res.json())
-    .then((datas) => {
-      datas.forEach((element) => {
-        adatok.push(element);
-        Divek(adatok[adatok.indexOf(element)]);
-        szam++;
-        console.log(element);
-      });
-    });
+	test.innerHTML = "";
+	fetch("https://nodejs.sulla.hu/data")
+		.then((res) => res.json())
+		.then((datas) => {
+			datas.forEach((element) => {
+				adatok.push(element);
+				Divek(adatok[adatok.indexOf(element)]);
+				szam++;
+				console.log(element);
+				console.log(element.minimum_nights);
+			});
+		});
 }
 
 function Divek(element) {
-  let div = document.createElement("div");
-  div.classList.add("card");
-  let divv = document.createElement("div");
-  divv.classList.add("card-body");
-  divv.innerHTML = "Hostnév: " + element.hostname + "<br>";
-  divv.innerHTML += "Hely: " + element.location + "<br>";
-  divv.innerHTML += "Minimum éjszakák: " + element.minimum_nights + "<br>";
-  divv.innerHTML += "Név: " + element.name + "<br>";
-  divv.innerHTML += "Ár (forintban): " + element.price + " Ft<br>";
-  divv.innerHTML += `<button class='btn btn-danger'onclick='Torol(${element.id})'>Törlés</button>`;
-  divv.innerHTML += `<button class='btn btn-success' onclick='Modosit(${szam})'>Módosít</button>`;
-  divv.innerHTML += `<button class='btn btn-primary' onclick='Reszletek()'>Részletek</button>`;
-  div.appendChild(divv);
-  test.appendChild(div);
+	let div = document.createElement("div");
+	div.classList.add("card");
+	let divv = document.createElement("div");
+	divv.classList.add("card-body");
+	divv.innerHTML = "Hostnév: " + element.hostname + "<br>";
+	divv.innerHTML += "Hely: " + element.location + "<br>";
+	divv.innerHTML += "Minimum éjszakák: " + element.minimum_nights + "<br>";
+	divv.innerHTML += "Név: " + element.name + "<br>";
+	divv.innerHTML += "Ár (forintban): " + element.price + " Ft<br>";
+	divv.innerHTML += `<button class='btn btn-danger'onclick='Torol(${element.id})'>Törlés</button>`;
+	divv.innerHTML += `<button class='btn btn-success' onclick='Modosit(${szam})'>Módosít</button>`;
+	divv.innerHTML += `<button class='btn btn-primary' onclick='Reszletek(${szam})'>Részletek</button>`;
+	div.appendChild(divv);
+	test.appendChild(div);
 }
 
 function Torol(id) {
-  if (confirm(`Biztosan törli?`)) {
-    alert("Sikeres törlés");
+	if (confirm(`Biztosan törli?`)) {
+		alert("Sikeres törlés");
 
-    fetch("https://nodejs.sulla.hu/data/" + id, {
-      method: "DELETE",
-    }).then((res) => {
-      location.reload();
-    });
+		fetch("https://nodejs.sulla.hu/data/" + id, {
+			method: "DELETE"
+		}).then((res) => {
+			location.reload();
+		});
 
-    return;
-  }
+		return;
+	}
 
-  alert("Törlés megszakítva");
+	alert("Törlés megszakítva");
 }
 
 function Modosit(elem) {
-  let mi = adatok[elem];
-  console.log(mi);
-  UjSzallas(mi);
+	let mi = adatok[elem];
+	console.log(mi);
+	UjSzallas(mi);
 }
 
 function Modosit2(elem) {
-  let adatok2 = {
-    hotname: document.getElementById("hostname").value,
-    location: document.getElementById("location").value,
-    minimun_nights: document.getElementById("minimun_nightss").value,
-    name: document.getElementById("name").value,
-    price: document.getElementById("price").value,
-  };
+	let adatok2 = {
+		hostname: document.getElementById("hostname").value,
+		location: document.getElementById("location").value,
+		minimum_nights: document.getElementById("minimum_nightss").value,
+		name: document.getElementById("name").value,
+		price: document.getElementById("price").value
+	};
 
-  fetch("https://nodejs.sulla.hu/data/" + elem, {
-    method: "PUT",
-    body: JSON.stringify(adatok2),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(function () {
-      location.reload();
-    })
-    .catch((error) => {
-      console.error("Hiba történt a kérés során:", error);
-      alert("Hiba történt az adatok lekérése közben.");
-    });
+	if (
+		adatok2.hostname === "" ||
+		adatok2.location === "" ||
+		adatok2.minimum_nights === "" ||
+		adatok2.name === "" ||
+		adatok2.price === ""
+	) {
+		alert("Ne hagyj mezőt üresen!");
+		return;
+	}
+
+	fetch("https://nodejs.sulla.hu/data/" + elem, {
+		method: "PUT",
+		body: JSON.stringify(adatok2),
+		headers: {
+			"Content-Type": "application/json"
+		}
+	})
+		.then(function () {
+			location.reload();
+		})
+		.catch((error) => {
+			console.error("Hiba történt a kérés során:", error);
+			alert("Hiba történt az adatok lekérése közben.");
+		});
 }
 
-function Reszletek() {}
+function Reszletek(szam) {
+	let cards = document.querySelectorAll(".card");
+	let div2 = document.createElement("div");
+	div2.innerHTML = `
+  <h2>Részletek</h2>
+  <p>Hostnév: ${adatok[szam].hostname}</p>
+  <p>Hely: ${adatok[szam].location}</p>
+  <p>Éjszakák: ${adatok[szam].minimum_nights}</p>
+  <p>Név:: ${adatok[szam].name}</p>
+  <p>Ár (ft): ${adatok[szam].price} Ft</p>
+  <p>Leírás: Nagyon nagyon nagyon nagyon... ...nagyon jó hely!!</p>
+  <img src="Images/kep${0}.jpg" title="kép" alt="kép">
+  `;
+	div2.className = "popup";
+
+	if (cards[szam].childElementCount < 2) {
+		cards[szam].appendChild(div2);
+		return;
+	}
+	cards[szam].lastChild.remove();
+}
+
+function RandomImg() {
+	return Math.floor(Math.random() * 3);
+}
 
 function UjSzallas(elem) {
-  test.innerHTML = "";
-  test.innerHTML = `
+	test.innerHTML = "";
+	test.innerHTML = `
   <form>
   <div class="form-group">
     <label for="hostname">Hostnév</label>
-    <input class="form-control" id="hostname" placeholder="Írja be a nevet" value="">
+    <input class="form-control" id="hostname" placeholder="Írja be a nevet">
   </div>
   <div class="form-group">
     <label for="location">Hely</label>
-    <input class="form-control" id="location" placeholder="Hely" value="">
+    <input class="form-control" id="location" placeholder="Hely">
   </div>
     <div class="form-group">
-    <label for="minimun_nightss">Minimum éjszakák</label>
-    <input type="text" class="form-control" id="minimun_nightss" placeholder="Minimum éjszakák" value="">
+    <label for="minimum_nightss">Minimum éjszakák</label>
+    <input type="text" class="form-control" id="minimum_nightss" placeholder="Minimum éjszakák">
   </div>
     <div class="form-group">
     <label for="name">Név</label>
-    <input class="form-control" id="name" placeholder="Név" value="">
+    <input class="form-control" id="name" placeholder="Név">
   </div>
     <div class="form-group">
     <label for="price">Ár (Forintban)</label>
-    <input type="number" class="form-control" id="price" placeholder="Ár (forintban)" value="">
+    <input type="number" class="form-control" id="price" placeholder="Ár (forintban)">
   </div>
   <button type="submit" id="kuld" class="btn btn-primary">Küld</button>
 </form>`;
-  document.getElementById("kuld").addEventListener("click", function Func() {
-    Kuld(elem);
-  });
+	document.getElementById("kuld").addEventListener("click", function Func() {
+		Kuld(elem);
+	});
 
-  if (adatok.includes(elem)) {
-    document.getElementById("hostname").value = elem.hostname;
-    document.getElementById("location").value = elem.location;
-    document.getElementById("minimun_nightss").value = elem.minimum_nights;
-    document.getElementById("name").value = elem.name;
-    document.getElementById("price").value = elem.price;
-  }
+	if (adatok.includes(elem)) {
+		document.getElementById("hostname").value = elem.hostname;
+		document.getElementById("location").value = elem.location;
+		document.getElementById("minimum_nightss").value = elem.minimum_nights;
+		document.getElementById("name").value = elem.name;
+		document.getElementById("price").value = elem.price;
+	}
 }
 
 function Kuld(elem) {
-  let adatook = {
-    hostname: document.getElementById("hostname").value,
-    location: document.getElementById("location").value,
-    minimun_nights: document.getElementById("minimun_nightss").value,
-    name: document.getElementById("name").value,
-    price: document.getElementById("price").value,
-  };
+	let adatook = {
+		hostname: document.getElementById("hostname").value,
+		location: document.getElementById("location").value,
+		minimum_nights: document.getElementById("minimum_nightss").value,
+		name: document.getElementById("name").value,
+		price: document.getElementById("price").value
+	};
 
-  if (adatok.includes(elem)) {
-    Modosit2(elem.id);
-    return;
-  }
+	if (
+		adatook.hostname === "" ||
+		adatook.location === "" ||
+		adatook.minimum_nights === "" ||
+		adatook.name === "" ||
+		adatook.price === ""
+	) {
+		alert("Ne hagyj mezőt üresen!");
+		return;
+	}
 
-  fetch("https://nodejs.sulla.hu/data", {
-    method: "POST",
-    body: JSON.stringify(adatook),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => {
-    location.reload();
-  });
+	if (adatok.includes(elem)) {
+		Modosit2(elem.id);
+		return;
+	}
+
+	fetch("https://nodejs.sulla.hu/data", {
+		method: "POST",
+		body: JSON.stringify(adatook),
+		headers: {
+			"Content-Type": "application/json"
+		}
+	}).then((res) => {
+		location.reload();
+	});
 }
