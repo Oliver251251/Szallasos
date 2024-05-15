@@ -10,7 +10,7 @@ function Lekeres() {
     .then((datas) => {
       datas.forEach((element) => {
         adatok.push(element);
-        Divek(element);
+        Divek(adatok[adatok.indexOf(element)]);
         szam++;
         console.log(element);
       });
@@ -24,19 +24,18 @@ function Divek(element) {
   divv.classList.add("card-body");
   divv.innerHTML = "Hostnév: " + element.hostname + "<br>";
   divv.innerHTML += "Hely: " + element.location + "<br>";
-  divv.innerHTML += "Minimum éjszakák: " + element.minimum_nights + "<br>";
+  divv.innerHTML += "Minimum éjszakák: " + element.minimun_nights + "<br>";
   divv.innerHTML += "Név: " + element.name + "<br>";
   divv.innerHTML += "Ár (forintban): " + element.price + " Ft<br>";
   divv.innerHTML += `<button class='btn btn-danger'onclick='Torol(${element.id})'>Törlés</button>`;
   divv.innerHTML += `<button class='btn btn-success' onclick='Modosit(${szam})'>Módosít</button>`;
   divv.innerHTML += `<button class='btn btn-primary' onclick='Reszletek()'>Részletek</button>`;
-
+  console.log(element.minimum_nights);
   div.appendChild(divv);
   test.appendChild(div);
 }
 
 function Torol(id) {
-  //bele hogy mit?
   if (confirm(`Biztosan törli?`)) {
     alert("Sikeres törlés");
 
@@ -66,17 +65,6 @@ function Modosit2(elem) {
     name: document.getElementById("name").value,
     price: document.getElementById("price").value,
   };
-
-  if (
-    adatok2.hotname == undefined ||
-    adatok2.location == undefined ||
-    adatok2.minimun_nights == undefined ||
-    adatok2.name == undefined ||
-    adatok2.price == undefined
-  ) {
-    alert("Ne hagyjon üresen semmit");
-    return;
-  }
 
   fetch("https://nodejs.sulla.hu/data/" + elem, {
     method: "PUT",
@@ -139,21 +127,11 @@ function Kuld(elem) {
   let adatook = {
     hostname: document.getElementById("hostname").value,
     location: document.getElementById("location").value,
-    minimun_nights: document.getElementById("minimun_nights").value,
+    minimun_nights: parseInt(document.getElementById("minimun_nights").value),
     name: document.getElementById("name").value,
     price: document.getElementById("price").value,
   };
-  if (
-    adatook.hostname == undefined ||
-    adatook.location == undefined ||
-    adatook.minimun_nights == undefined ||
-    adatook.name == undefined ||
-    adatook.price == undefined
-  ) {
-    alert("Ne hagyjon üresen semmit");
-    return;
-  }
-
+  console.log(document.getElementById("minimun_nights").value);
   if (adatok.includes(elem)) {
     Modosit2(elem.id);
     return;
@@ -166,6 +144,6 @@ function Kuld(elem) {
       "Content-Type": "application/json",
     },
   }).then((res) => {
-    location.reload();
+    // location.reload();
   });
 }
