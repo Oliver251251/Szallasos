@@ -113,11 +113,14 @@ function UjSzallas(elem) {
   document.getElementById("kuld").addEventListener("click", function Func() {
     Kuld(elem);
   });
-  document.getElementById("hostname").value = elem.hostname;
-  document.getElementById("location").value = elem.location;
-  document.getElementById("minimun_nights").value = elem.minimum_nights;
-  document.getElementById("name").value = elem.name;
-  document.getElementById("price").value = elem.price;
+
+  if (adatok.includes(elem)) {
+    document.getElementById("hostname").value = elem.hostname;
+    document.getElementById("location").value = elem.location;
+    document.getElementById("minimun_nights").value = elem.minimum_nights;
+    document.getElementById("name").value = elem.name;
+    document.getElementById("price").value = elem.price;
+  }
 }
 
 function Kuld(elem) {
