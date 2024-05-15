@@ -1,3 +1,8 @@
+//To do
+//Ures ellenőrzés
+//undi megcsinálása
+//részletek gomb add function
+
 let test = document.getElementById("main");
 let adatok = [];
 let szam = 0;
