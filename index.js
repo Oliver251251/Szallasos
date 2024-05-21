@@ -9,6 +9,8 @@ let szam = 0;
 
 Lekeres();
 function Lekeres() {
+	adatok = [];
+	szam = 0;
 	test.innerHTML = "";
 	fetch("https://nodejs.sulla.hu/data")
 		.then((res) => res.json())
